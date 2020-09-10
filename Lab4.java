@@ -26,11 +26,12 @@ public class Lab4{
         for(int i=0; i< itemArray.length; i++){
         	System.out.println(itemArray[i]);
         }
+        packBin(itemArray, binCapacity);
         
 
     }//end main
 
-    public static void packBin(int[] itemArray, int binCapacity){
+    public static void packBin(Integer[] itemArray, int binCapacity){
        // sorting the items in reverse order
        ArrayList<Integer> bins = new ArrayList<Integer>();
        ArrayList<Integer> binsOutput = new ArrayList<Integer>();
@@ -43,19 +44,20 @@ public class Lab4{
             // continue until item has been placed
             int binCount = 0;
             while(!itemPlaced){
-                if (itemArray[i] <= bin.get(binCount)){
-                    bin.get(binCount) = bin.get(binCount) - itemArray[i];
+                if (itemArray[i] <= bins.get(binCount)){
+                    int updatedSpace = bins.get(binCount) - itemArray[i]; 
+                    bins.set(binCount,updatedSpace); 
                     System.out.println("item " + itemArray[i] + " placed in bin " + binCount);
                     itemPlaced= true;
 
                 }
-                else if(itemArray[i] > bin.get(binCount)){
+                else if(itemArray[i] > bins.get(binCount)){
                     binCount++;
                    
                 }
 
 
-            }sss
+            }
 
        }
       
