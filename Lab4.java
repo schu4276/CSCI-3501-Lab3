@@ -1,5 +1,6 @@
 // used this source for reverse sorting array: https://www.java67.com/2016/07/how-to-sort-array-in-descending-order-in-java.html
-
+// help on scanner class and input: https://stackoverflow.com/questions/7646392/convert-string-to-int-array-in-java
+// Algorithm for packBin() is based on algorithm from: https://security-consulting.icu/blog/2014/08/bin-packing-algorithm-java/
 import java.util.*;
 public class Lab4{
     public static void main(String[] args){
@@ -14,18 +15,18 @@ public class Lab4{
         }
         int binCapacity = parameters[0];
         int n = parameters[1];
+
+        // making sure user input is correct 
+        if(parameters.length-2 != n ){
+        	System.out.println("ERROR: Requested n does not match # of items.  Please try again");
+        	System.exit(0);
+
+        }
         Integer[] itemArray = new Integer[parameters.length-2];
         for(int i =0; i < n; i++){
         	itemArray[i] = parameters[i+2];
         } 
-        System.out.println();
-       
-        // Test prints to make sure input is being taken correctly
-
-
-        for(int i=0; i< itemArray.length; i++){
-        	System.out.println(itemArray[i]);
-        }
+             
         packBin(itemArray, binCapacity);
         
 
@@ -33,42 +34,66 @@ public class Lab4{
 
     public static void packBin(Integer[] itemArray, int binCapacity){
        // sorting the items in reverse order
-       ArrayList<Integer> bins = new ArrayList<Integer>();
-       List<String> binsOutput = new ArrayList<String>();
-       binsOutput.add("");
+       //ArrayList<Integer> bins = new ArrayList<Integer>();
+       String[] binsOutput = new String[itemArray.length];
+       ArrayList<Integer> unSorted = new ArrayList<Integer>();
+       ArrayList<Bin> bins = new ArrayList<Bin>();
        Arrays.sort(itemArray, Collections.reverseOrder());
-       for(int i = 0; i < itemArray.length; i++){
-           bins.add(binCapacity);
-       }
-
+       
+       bins.add(new Bin(binCapacity));
+     
        for(int i=0; i< itemArray.length; i++){
+       		// check to make sure item is not too large
+       		if(itemArray[i] > binCapacity){
+            	unSorted.add(itemArray[i]);
+            	i++;
+            }
+            // continue searching for appropriate bin until item has been placed
             boolean itemPlaced = false; 
-            // continue until item has been placed
             int binCount = 0;
             while(!itemPlaced){
-                if (itemArray[i] <= bins.get(binCount)){
-                    int updatedSpace = bins.get(binCount) - itemArray[i]; 
-                    bins.set(binCount, updatedSpace); 
-                    String updatedString = (binsOutput.get(0) += (", " + itemArray[i]));
-                    binsOutput.set(binCount, updatedString); 
-                    System.out.println("item " + itemArray[i] + " placed in bin " + binCount);
+            	if(binCount>= bins.size()){
+            		bins.add(new Bin(binCapacity));
+            	}
+            	Bin currBin = bins.get(binCount);
+                if (itemArray[i] <= currBin.getUnpackSpace()){
+                	currBin.addItem(itemArray[i]);
                     itemPlaced= true;
 
                 }
-                else if(itemArray[i] > bins.get(binCount)){
+                else if(itemArray[i] > currBin.getUnpackSpace()){
                     binCount++;
-                   
+                    
                 }
-
 
             }
 
        }
-      
+       binOutput(bins, unSorted);
+    }
+
+    public static void binOutput(ArrayList<Bin> bins, ArrayList<Integer> unSorted ){
+    	int totalUnusedSpace =0; 
+    	for(int i=0; i<bins.size(); i++){
+    		Bin currBin = bins.get(i);
+    		System.out.println("Bin " + i +": " + currBin.getItems() + " space remaining: " + currBin.getUnpackSpace());	
+    		totalUnusedSpace += currBin.getUnpackSpace();
+    	}
+    	// Print unpacked items
+    	if(unSorted.size() <= 0){
+    		System.out.println();
+    			System.out.println("all items were packed");
+    	}else{
+    		System.out.println();
+    		System.out.println(" *items unpacked: " + unSorted);
+    	}
+    	// Print total unused space
+    	System.out.println();
+    	System.out.println(" *Total unused space: " + totalUnusedSpace);
+
+    }
+
+       
 
 
-
-
-
-    } 
 } //end lab4
