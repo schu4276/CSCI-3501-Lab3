@@ -26,6 +26,12 @@
     Our algorithm offers a less nice solution for the bin packing probem when the sum of the item values mod the bin capcity is a relativly low number.
     This can be seen in test example (............)
 ##Explanation of efficiency 
+*T(n) = nlg(n) + n + 2n + n 
+    Because nlg(n) is the dominating term, We have calculated the runtime of our algorithm to be O(nlgn).  The nlg(n) comes from the sort thta needs to be 
+    done at the begining of the algorithm, before the binpacking even starts.  The sort at the begning is crucial to making the algorithm work properly.  
+    We calculated the nested while loop of the algorithm to be 2n, because the worst case would be that each item needs to run through the while loop twice, 
+    there is no way for an item to run through the while loop more times than two. One way we could imporve the efficency of this algorithm would be to make sure 
+    we are utilizing the best sorting algorithm for this situation.    
 
 ##Sources
 
