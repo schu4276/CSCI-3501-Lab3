@@ -3,6 +3,7 @@
 * Ask about ```Collections.reverseOrder()```
 * Ask about ```while()```
 * Ask about big O
+* Ask about test size
 
 ##Explanation of the algorithm
 
