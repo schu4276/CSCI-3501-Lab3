@@ -34,7 +34,6 @@ public class Lab4{
 
     public static void packBin(Integer[] itemArray, int binCapacity){
        // sorting the items in reverse order
-       //ArrayList<Integer> bins = new ArrayList<Integer>();
        String[] binsOutput = new String[itemArray.length];
        ArrayList<Integer> unSorted = new ArrayList<Integer>();
        ArrayList<Bin> bins = new ArrayList<Bin>();
