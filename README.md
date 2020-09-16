@@ -118,3 +118,8 @@
 
     Total unused space: 0
 
+* Sources: 
+    We used this source for reverse sorting array: https://www.java67.com/2016/07/how-to-sort-array-in-descending-order-in-java.html
+    for help on scanner class and input: https://stackoverflow.com/questions/7646392/convert-string-to-int-array-in-java
+    Algorithm for packBin() is based on algorithm from: https://security-consulting.icu/blog/2014/08/bin-packing-algorithm-java/
+
