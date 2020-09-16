@@ -2,17 +2,24 @@ import java.util.Random;
 public class Tests {
     private static Random rand = new Random();
     public static void main(String Args[]){
-        //Random list of 30 random numbers (0-20) to add to 20
+        //Random list of 30 random numbers (0-20) Bin
+        System.out.println("Random list of 30 random numbers (0-20)"); 
         uniformTest();
         System.out.println("");
         //Test of 30 numbers from 1 - 100 ordered up from a starter to add to 100
+        System.out.println("Ordered list of numbers");
         orderedTest();
         System.out.println("");
-        //Test of a known best case
-        knownOptimalTest();
         System.out.println("");
-        //Test of a known worst case
-        knownWorstCaseTest();
+        //Test of a known non optimal
+        System.out.println("non-Optimal example");
+        WorstCaseTest();
+        System.out.println("");
+        System.out.println("");
+        //Test of a known optimal case
+        System.out.println("Optimal example");
+        OptimalCaseTest();
+        System.out.println("");
         System.out.println("");
     }
 
@@ -29,23 +36,29 @@ public class Tests {
     }
 
     public static void orderedTest(){
-        int binCap = 100;
-        int itemCount = 30;
-        int range = binCap-itemCount;
+        int binCap = 20;
+        int itemCount = 15;
         Integer[] parameters = new Integer[itemCount];
-        Integer seed = rand.nextInt(range);
         for(int i = 0; i < itemCount; i++){
-            parameters[i] = seed;
-            seed++;
+            parameters[i] = i;
+    
         }
         Lab4.packBin(parameters, binCap);
     }
 
-    public static void knownOptimalTest(){
+    public static void WorstCaseTest(){
+       int binCap = 20;
+        int itemCount = 15;
+        Integer[] parameters = {1,2,3,4,5,6,7,8,9,190,11,12,13,14,15};
+        Lab4.packBin(parameters, binCap);
 
     }
 
-    public static void knownWorstCaseTest(){
+    public static void OptimalCaseTest(){
+        int binCap = 20;
+        int itemCount = 30;
+        Integer[] parameters = {2,4,6,8,10,5,20,10,3,6,3,7,12,16,1,15,12,4,9,3,6,8,3,1,5,3,19,15,4,0};
+        Lab4.packBin(parameters, binCap);
 
     }
 }
